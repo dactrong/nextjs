@@ -1,11 +1,19 @@
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
+import { useRouter } from "next/router";
 import  React from "react";
 
 export interface PostPageProps {
     post:any
 }
 
+
+
 export default function App({post}: PostPageProps) {
+
+  const router = useRouter()
+  if(router.isFallback){
+      return <div style={{ textAlign:'center'}}>Loading................</div>
+  }
   return (
     <div>
       <h1>Post detail page</h1>
@@ -24,7 +32,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: data.data.map((post: any) => ({ params: { postId: post.id } })),
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -45,5 +53,6 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async (
     props: {
       post: data,
     },
+    revalidate:5,
   }
 }
