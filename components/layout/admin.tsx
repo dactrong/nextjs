@@ -2,7 +2,7 @@ import { LayoutProps } from "@/models/index";
 import Link from "next/link";
 import * as React from "react";
 
-export interface IMainLayout {}
+export interface AdminLayout {}
 
 export function AdminLayout({children}: LayoutProps) {
   return (
